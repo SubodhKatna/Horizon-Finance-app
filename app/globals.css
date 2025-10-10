@@ -156,31 +156,54 @@
   @apply no-scrollbar hidden h-screen max-h-screen flex-col border-l border-gray-700 xl:flex w-[355px] xl:overflow-y-scroll bg-[#1a1a24];
 }
 
-.profile-banner {
-  @apply w-full p-8 rounded-b-2xl;
-
-  /* Animated gradient background */
-  background: linear-gradient(270deg, #43437a, #6b5bbd, #24244a, #7e6aff);
-  background-size: 800% 800%;
-  animation: gradientShift 12s ease infinite;
-
-  /* Glassmorphism effect */
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  background-color: rgba(36, 36, 74, 0.6);
-
-  /* Shadows for depth */
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35), inset 0 6px 16px rgba(0, 0, 0, 0.25);
-
-  /* Border & text */
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  color: #fff;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
-
-  /* Slight pulsing scale effect */
-  animation: gradientShift 12s ease infinite, pulseScale 6s ease-in-out infinite;
+/* Add these keyframes to your CSS file */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
+.profile-banner {
+  @apply relative w-full p-8 rounded-b-2xl; /* Rounded all corners and added overflow-hidden */
+
+  /* Dark, modern color palette from the image */
+  color: #eaf0ff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+
+  /* Animated gradient background with new colors */
+  background: linear-gradient(270deg, #10121C, #1D1F2B, #10121C);
+  background-size: 600% 600%;
+  animation: gradientShift 15s ease infinite;
+
+  /* Glassmorphism effect with a darker, bluer tint */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background-color: rgba(16, 18, 28, 0.65);
+
+  /* Refined shadows for a softer depth */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), inset 0 1px 4px rgba(0, 0, 0, 0.2);
+
+  /* Subtle border on all sides for a finished look */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Pseudo-element to create the glossy highlight effect seen in the image */
+.profile-banner::before {
+
+  @apply absolute left-0 w-full;
+  background: radial-gradient(
+    ellipse 80% 100% at 50% -20%,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0)
+  );
+  pointer-events: none; /* Ensures the overlay doesn't interfere with mouse events */
+}
 /* Gradient animation */
 @keyframes gradientShift {
   0% { background-position: 0% 50%; }
@@ -303,7 +326,11 @@
 }
 
 .auth-form {
-  @apply flex min-h-screen w-full max-w-[420px] flex-col justify-center gap-5 py-10 md:gap-8 bg-[#1a1a24];
+  @apply flex min-h-screen w-full flex-col items-center justify-center gap-6 bg-[#1a1a24] py-8 px-4 
+    sm:px-8 sm:py-10 
+    md:gap-8 md:px-12 
+    lg:px-16 lg:py-12 
+    transition-all duration-300;
 }
 
 .form-item {

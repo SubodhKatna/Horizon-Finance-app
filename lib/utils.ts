@@ -1,8 +1,8 @@
 /* eslint-disable no-prototype-builtins */
-import { type ClassValue, clsx } from "clsx";
-import qs from "query-string";
-import { twMerge } from "tailwind-merge";
-import { z } from "zod";
+import { type ClassValue, clsx } from 'clsx';
+import qs from 'query-string';
+import { twMerge } from 'tailwind-merge';
+import { z } from 'zod';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -11,50 +11,50 @@ export function cn(...inputs: ClassValue[]) {
 // FORMAT DATE TIME
 export const formatDateTime = (dateString: Date) => {
   const dateTimeOptions: Intl.DateTimeFormatOptions = {
-    weekday: "short", // abbreviated weekday name (e.g., 'Mon')
-    month: "short", // abbreviated month name (e.g., 'Oct')
-    day: "numeric", // numeric day of the month (e.g., '25')
-    hour: "numeric", // numeric hour (e.g., '8')
-    minute: "numeric", // numeric minute (e.g., '30')
+    weekday: 'short', // abbreviated weekday name (e.g., 'Mon')
+    month: 'short', // abbreviated month name (e.g., 'Oct')
+    day: 'numeric', // numeric day of the month (e.g., '25')
+    hour: 'numeric', // numeric hour (e.g., '8')
+    minute: 'numeric', // numeric minute (e.g., '30')
     hour12: true, // use 12-hour clock (true) or 24-hour clock (false)
   };
 
   const dateDayOptions: Intl.DateTimeFormatOptions = {
-    weekday: "short", // abbreviated weekday name (e.g., 'Mon')
-    year: "numeric", // numeric year (e.g., '2023')
-    month: "2-digit", // abbreviated month name (e.g., 'Oct')
-    day: "2-digit", // numeric day of the month (e.g., '25')
+    weekday: 'short', // abbreviated weekday name (e.g., 'Mon')
+    year: 'numeric', // numeric year (e.g., '2023')
+    month: '2-digit', // abbreviated month name (e.g., 'Oct')
+    day: '2-digit', // numeric day of the month (e.g., '25')
   };
 
   const dateOptions: Intl.DateTimeFormatOptions = {
-    month: "short", // abbreviated month name (e.g., 'Oct')
-    year: "numeric", // numeric year (e.g., '2023')
-    day: "numeric", // numeric day of the month (e.g., '25')
+    month: 'short', // abbreviated month name (e.g., 'Oct')
+    year: 'numeric', // numeric year (e.g., '2023')
+    day: 'numeric', // numeric day of the month (e.g., '25')
   };
 
   const timeOptions: Intl.DateTimeFormatOptions = {
-    hour: "numeric", // numeric hour (e.g., '8')
-    minute: "numeric", // numeric minute (e.g., '30')
+    hour: 'numeric', // numeric hour (e.g., '8')
+    minute: 'numeric', // numeric minute (e.g., '30')
     hour12: true, // use 12-hour clock (true) or 24-hour clock (false)
   };
 
   const formattedDateTime: string = new Date(dateString).toLocaleString(
-    "en-US",
+    'en-US',
     dateTimeOptions
   );
 
   const formattedDateDay: string = new Date(dateString).toLocaleString(
-    "en-US",
+    'en-US',
     dateDayOptions
   );
 
   const formattedDate: string = new Date(dateString).toLocaleString(
-    "en-US",
+    'en-US',
     dateOptions
   );
 
   const formattedTime: string = new Date(dateString).toLocaleString(
-    "en-US",
+    'en-US',
     timeOptions
   );
 
@@ -67,9 +67,9 @@ export const formatDateTime = (dateString: Date) => {
 };
 
 export function formatAmount(amount: number): string {
-  const formatter = new Intl.NumberFormat("en-IN", {
-    style: "currency",
-    currency: "INR",
+  const formatter = new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
     minimumFractionDigits: 2,
   });
 
@@ -79,7 +79,7 @@ export function formatAmount(amount: number): string {
 export const parseStringify = (value: any) => JSON.parse(JSON.stringify(value));
 
 export const removeSpecialCharacters = (value: string) => {
-  return value.replace(/[^\w\s]/gi, "");
+  return value.replace(/[^\w\s]/gi, '');
 };
 
 interface UrlQueryParams {
@@ -104,28 +104,28 @@ export function formUrlQuery({ params, key, value }: UrlQueryParams) {
 
 export function getAccountTypeColors(type: AccountTypes) {
   switch (type) {
-    case "depository":
+    case 'depository':
       return {
-        bg: "bg-blue-25",
-        lightBg: "bg-blue-100",
-        title: "text-blue-900",
-        subText: "text-blue-700",
+        bg: 'bg-blue-25',
+        lightBg: 'bg-blue-100',
+        title: 'text-blue-900',
+        subText: 'text-blue-700',
       };
 
-    case "credit":
+    case 'credit':
       return {
-        bg: "bg-success-25",
-        lightBg: "bg-success-100",
-        title: "text-success-900",
-        subText: "text-success-700",
+        bg: 'bg-success-25',
+        lightBg: 'bg-success-100',
+        title: 'text-success-900',
+        subText: 'text-success-700',
       };
 
     default:
       return {
-        bg: "bg-green-25",
-        lightBg: "bg-green-100",
-        title: "text-green-900",
-        subText: "text-green-700",
+        bg: 'bg-green-25',
+        lightBg: 'bg-green-100',
+        title: 'text-green-900',
+        subText: 'text-green-700',
       };
   }
 }
@@ -171,7 +171,7 @@ export function countTransactionCategories(
 
 export function extractCustomerIdFromUrl(url: string) {
   // Split the URL string by '/'
-  const parts = url.split("/");
+  const parts = url.split('/');
 
   // Extract the last part, which represents the customer ID
   const customerId = parts[parts.length - 1];
@@ -192,20 +192,102 @@ export const getTransactionStatus = (date: Date) => {
   const twoDaysAgo = new Date(today);
   twoDaysAgo.setDate(today.getDate() - 2);
 
-  return date > twoDaysAgo ? "Processing" : "Success";
+  return date > twoDaysAgo ? 'Processing' : 'Success';
 };
 
 export const authFormSchema = (type: string) => z.object({
-  // sign up
-  firstName: type === 'sign-in' ? z.string().optional() : z.string().min(3),
-  lastName: type === 'sign-in' ? z.string().optional() : z.string().min(3),
-  address1: type === 'sign-in' ? z.string().optional() : z.string().max(50),
-  city: type === 'sign-in' ? z.string().optional() : z.string().max(50),
-  state: type === 'sign-in' ? z.string().optional() : z.string().min(2).max(2),
-  postalCode: type === 'sign-in' ? z.string().optional() : z.string().min(3).max(6),
-  dateOfBirth: type === 'sign-in' ? z.string().optional() : z.string().min(3),
-  ssn: type === 'sign-in' ? z.string().optional() : z.string().min(3),
-  // both
-  email: z.string().email(),
-  password: z.string().min(8),
-})
+  // 🪪 Sign-Up Only Fields
+  firstName:
+    type === 'sign-in'
+      ? z.string().optional()
+      : z
+        .string({ required_error: 'First name is required' })
+        .min(2, { message: 'First name must be at least 2 characters' })
+        .max(50, { message: 'First name cannot exceed 50 characters' })
+        .regex(/^[A-Za-z\s'-]+$/, {
+          message:
+            'First name may only contain letters, spaces, apostrophes, and hyphens',
+        })
+        .trim(),
+
+  lastName:
+    type === 'sign-in'
+      ? z.string().optional()
+      : z
+        .string({ required_error: 'Last name is required' })
+        .min(2, { message: 'Last name must be at least 2 characters' })
+        .max(50, { message: 'Last name cannot exceed 50 characters' })
+        .regex(/^[A-Za-z\s'-]+$/, {
+          message:
+            'Last name may only contain letters, spaces, apostrophes, and hyphens',
+        })
+        .trim(),
+
+  address:
+    type === 'sign-in'
+      ? z.string().optional()
+      : z
+        .string({ required_error: 'Address is required' })
+        .min(5, { message: 'Address must be at least 5 characters' })
+        .max(100, { message: 'Address cannot exceed 100 characters' })
+        .trim(),
+
+  state:
+    type === 'sign-in'
+      ? z.string().optional()
+      : z
+        .string({ required_error: 'State code is required' })
+        .length(2, {
+          message: 'State code must be exactly 2 letters (e.g., CA, NY)',
+        })
+        .regex(/^[A-Za-z]{2}$/, {
+          message: 'State code must only contain letters',
+        })
+        .transform((val) => val.toUpperCase()),
+
+  postalCode:
+    type === 'sign-in'
+      ? z.string().optional()
+      : z
+        .string({ required_error: 'Postal code is required' })
+        .regex(/^\d{4,6}$/, {
+          message: 'Postal code must be between 4 and 6 digits',
+        })
+        .trim(),
+
+  dateOfBirth:
+    type === 'sign-in'
+      ? z.string().optional()
+      : z
+        .string({ required_error: 'Date of birth is required' })
+        .regex(/^\d{4}-\d{2}-\d{2}$/, {
+          message: 'Date of birth must be in YYYY-MM-DD format',
+        }),
+
+  // 📧 Common Fields (Both)
+  email: z
+    .string({ required_error: 'Email is required' })
+    .email({ message: 'Invalid email format' })
+    .max(100, { message: 'Email cannot exceed 100 characters' })
+    .trim(),
+
+  password: z
+    .string({ required_error: 'Password is required' })
+    .min(8, { message: 'Password must be at least 8 characters long' })
+    .max(64, { message: 'Password cannot exceed 64 characters' })
+    .regex(/[A-Z]/, {
+      message: 'Password must contain at least one uppercase letter (A–Z)',
+    })
+    .regex(/[a-z]/, {
+      message: 'Password must contain at least one lowercase letter (a–z)',
+    })
+    .regex(/[0-9]/, {
+      message: 'Password must contain at least one number (0–9)',
+    })
+    .regex(/[@$!%*?&]/, {
+      message:
+        'Password must include at least one special character (@, $, !, %, *, ?, &)',
+    })
+    .trim(),
+});
+
