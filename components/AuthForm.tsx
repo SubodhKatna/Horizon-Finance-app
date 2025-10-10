@@ -12,11 +12,14 @@ import CustomInput from './CustomInput';
 import { authFormSchema } from '@/lib/utils';
 import { Loader2 } from 'lucide-react';
 import { log } from 'console';
+import SignUp from '@/app/(auth)/sign-in/page';
+import { useRouter } from 'next/navigation';
+import { getLoggedInUser, signIn, signUp } from '@/lib/actions/user.actions';
 
 const AuthForm = ({ type }: { type: 'sign-in' | 'sign-up' }) => {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-
+  const router = useRouter();
   const schema = authFormSchema(type);
 
   const form = useForm<z.infer<typeof schema>>({
@@ -30,8 +33,9 @@ const AuthForm = ({ type }: { type: 'sign-in' | 'sign-up' }) => {
         : {
             firstName: '',
             lastName: '',
-            address: '',
+            address1: '',
             state: '',
+            city: "",
             postalCode: '',
             dateOfBirth: '',
             email: '',
@@ -39,18 +43,22 @@ const AuthForm = ({ type }: { type: 'sign-in' | 'sign-up' }) => {
           },
   });
 
-  const onSubmit = (values: z.infer<typeof schema>) => {
+  const onSubmit = async (data: z.infer<typeof schema>) => {
     setIsLoading(true);
     try {
-      if(type === 'sign-in'){
-        
+      if (type === 'sign-up') {
+        const newUser = await signUp(data);
+        setUser(newUser);
       }
-      if(type === 'sign-up'){
-        
+      if (type === 'sign-in') {
+        const response = await signIn({
+          email: data.email,
+          password: data.password,
+        })
+        if(response) router.push('/')
       }
-
     } catch (error) {
-      console.log(error)
+      console.log(error);
     } finally {
       setIsLoading(false);
     }
@@ -58,8 +66,11 @@ const AuthForm = ({ type }: { type: 'sign-in' | 'sign-up' }) => {
 
   return (
     <section className="auth-form">
-      <header className="flex flex-col gap-5 md:gap-8">
-        <Link href="/" className="cursor-pointer flex items-center gap-1">
+      <header className="flex flex-col gap-5 text-center md:gap-8 md:text-left">
+        <Link
+          href="/"
+          className="cursor-pointer flex items-center gap-1 justify-center md:justify-start"
+        >
           <Image
             src="/icons/logo.svg"
             width={34}
@@ -106,7 +117,7 @@ const AuthForm = ({ type }: { type: 'sign-in' | 'sign-up' }) => {
                   </div>
                   <CustomInput
                     control={form.control}
-                    name="address"
+                    name="address1"
                     label="Address"
                     placeholder="Enter your address"
                   />
@@ -125,12 +136,20 @@ const AuthForm = ({ type }: { type: 'sign-in' | 'sign-up' }) => {
                     />
                   </div>
 
-                  <CustomInput
-                    control={form.control}
-                    name="dateOfBirth"
-                    label="Date of Birth"
-                    placeholder="DD-MM-YYYY"
-                  />
+                  <div className="flex gap-4">
+                    <CustomInput
+                      control={form.control}
+                      name="dateOfBirth"
+                      label="Date of Birth"
+                      placeholder="DD-MM-YYYY"
+                    />
+                    <CustomInput
+                      control={form.control}
+                      name="city"
+                      label="City"
+                      placeholder="Delhi"
+                    />
+                  </div>
                 </>
               )}
               <CustomInput
@@ -180,6 +199,6 @@ const AuthForm = ({ type }: { type: 'sign-in' | 'sign-up' }) => {
       )}
     </section>
   );
-};
+}
 
 export default AuthForm;

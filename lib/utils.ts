@@ -223,13 +223,26 @@ export const authFormSchema = (type: string) => z.object({
         })
         .trim(),
 
-  address:
+  address1:
     type === 'sign-in'
       ? z.string().optional()
       : z
         .string({ required_error: 'Address is required' })
         .min(5, { message: 'Address must be at least 5 characters' })
         .max(100, { message: 'Address cannot exceed 100 characters' })
+        .trim(),
+
+  city:
+    type === 'sign-in'
+      ? z.string().optional()
+      : z
+        .string({ required_error: 'City is required' })
+        .min(2, { message: 'City name must be at least 2 characters' })
+        .max(50, { message: 'City name cannot exceed 50 characters' })
+        .regex(/^[A-Za-z\s'-]+$/, {
+          message:
+            'City name may only contain letters, spaces, apostrophes, and hyphens',
+        })
         .trim(),
 
   state:
@@ -256,13 +269,29 @@ export const authFormSchema = (type: string) => z.object({
         .trim(),
 
   dateOfBirth:
-    type === 'sign-in'
+    type === 'sign-in' // Assuming you have a sign-in/sign-up switch
       ? z.string().optional()
       : z
         .string({ required_error: 'Date of birth is required' })
-        .regex(/^\d{4}-\d{2}-\d{2}$/, {
-          message: 'Date of birth must be in YYYY-MM-DD format',
-        }),
+
+        // 1. Checks that the format is exactly DD-MM-YYYY
+        .regex(/^\d{2}-\d{2}-\d{4}$/, {
+          message: 'Date must be in DD-MM-YYYY format',
+        })
+
+        // 2. Checks if the date is a real calendar date (e.g., rejects "31-02-2024")
+        .refine(
+          (dateStr) => {
+            const [day, month, year] = dateStr.split('-').map(Number);
+            const date = new Date(year, month - 1, day);
+            return (
+              date.getFullYear() === year &&
+              date.getMonth() === month - 1 &&
+              date.getDate() === day
+            );
+          },
+          { message: 'Please enter a valid date.' }
+        ),
 
   // 📧 Common Fields (Both)
   email: z

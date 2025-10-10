@@ -327,30 +327,32 @@
 
 .auth-form {
   @apply flex min-h-screen w-full flex-col items-center justify-center gap-6 bg-[#1a1a24] py-8 px-4 
-    sm:px-8 sm:py-10 
-    md:gap-8 md:px-12 
-    lg:px-16 lg:py-12 
-    transition-all duration-300;
+ sm:px-8 sm:py-10 
+ md:gap-8 md:px-12 
+  lg:px-16 lg:py-12 
+  transition-all duration-300;
 }
 
+/* Edit this class */
 .form-item {
-  @apply flex flex-col gap-1.5;
+  /* Add flex-1 here to make the component grow */
+ @apply flex flex-1 flex-col gap-1.5;
 }
 
 .form-label {
-  @apply text-14 w-full max-w-[280px] font-medium text-gray-300;
+ @apply text-14 w-full max-w-[280px] font-medium text-gray-300;
 }
 
 .form-message {
-  @apply text-12 text-red-400;
+ @apply text-12 text-red-400;
 }
 
 .form-btn {
-  @apply text-16 rounded-lg border border-[#3a4b8b] bg-gradient-to-r from-[#2f3b78] to-[#3d4a8f] font-semibold text-white shadow-md;
+ @apply text-16 rounded-lg border border-[#3a4b8b] bg-gradient-to-r from-[#2f3b78] to-[#3d4a8f] font-semibold text-white shadow-md;
 }
 
 .form-link {
-  @apply text-14 cursor-pointer font-medium text-[#6f82ff] hover:text-[#8fa0ff];
+ @apply text-14 cursor-pointer font-medium text-[#6f82ff] hover:text-[#8fa0ff];
 }
 
 .payment-transfer {
@@ -398,7 +400,7 @@
 }
 
 .footer_name-mobile {
-  @apply flex size-10 items-center justify-center rounded-full bg-[#2b2b3b] text-gray-100;
+  @apply flex size-8 items-center justify-center rounded-full bg-[#2b2b3b] text-gray-100 xl:hidden;
 }
 
 .footer_email-mobile {

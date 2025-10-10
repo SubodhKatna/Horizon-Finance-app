@@ -23,7 +23,6 @@ const CustomInput = ({ control, name, label, placeholder, type }: CustomInputPro
 
   const getInputType = () => {
     if (isPasswordField) return showPassword ? "text" : "password";
-    if (name.toLowerCase() === "dateofbirth") return "date"; // DOB as date picker
     return type || "text";
   };
 

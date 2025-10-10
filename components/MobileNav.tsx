@@ -12,6 +12,7 @@ import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import Footer from './Footer';
 
 function MobileNav({ user }: MobileNavProps) {
   const pathname = usePathname();
@@ -59,15 +60,15 @@ function MobileNav({ user }: MobileNavProps) {
                         'bg-bank-gradient': isActive,
                       })}
                     >
-                        <Image
-                          src={item.imgURL}
-                          alt={item.label}
-                          width={20}
-                          height={20}
-                          className={cn({
-                            'brightness-[3] invert-0': isActive,
-                          })}
-                        />
+                      <Image
+                        src={item.imgURL}
+                        alt={item.label}
+                        width={20}
+                        height={20}
+                        className={cn({
+                          'brightness-[3] invert-0': isActive,
+                        })}
+                      />
                       <p
                         className={cn('text-16 font-semibold text-gray-2', {
                           '!text-white': isActive, // ✅ fixed typo
@@ -81,10 +82,9 @@ function MobileNav({ user }: MobileNavProps) {
               })}
               USER
             </nav>
+            <Footer user={user} type="mobile" />
           </div>
         </SheetContent>
-
-        Footer
       </Sheet>
     </section>
   );
